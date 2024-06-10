@@ -1,3 +1,5 @@
+# Open --> <div class="booking_list  hide_badge"><a href="/reserve_ss/?idx=47&amp;day=2024-06-14" class="tabled full-width" onclick=""> <div class="title table-cell"><div class="holder"><span class="text">별 / 10:00</span> <span class="count"></span></div></div></a></div>
+# Closed --> <div class="booking_list waiting closed disable hide_badge"><a href="/reserve_ss/?idx=46&amp;day=2024-06-14" class="tabled full-width" onclick="return false"> <div class="title table-cell"><div class="holder"><span class="text">별 / 11:30</span> <span class="count"></span></div></div></a></div>
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -14,6 +16,7 @@ theme = '그없상'
 email = "your_email@gmail.com"
 password = "your_email_password"
 to_email = "to_email@gmail.com"
+
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 
@@ -60,7 +63,7 @@ def check_reservation():
 
             
             # Check if reservations are available
-            if "Available" in reservation_status:
+            if "onclick=return true" in reservation_status:
                 print("예약 가능!")
                 return True
             else:
