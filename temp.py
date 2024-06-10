@@ -8,12 +8,12 @@ from email.mime.multipart import MIMEMultipart
 # URL of the reservation page
 url = "https://www.dpsnnn.com/reserve_g"
 name = '단편선'
-theme = ''
+theme = '그없상'
 
 # Email configuration (use enviromental variable)
 email = "your_email@gmail.com"
 password = "your_email_password"
-to_email = "jake50071227@gmail.com"
+to_email = "to_email@gmail.com"
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 
@@ -23,7 +23,7 @@ def send_email_notification():
         msg = MIMEMultipart()
         msg['From'] = email
         msg['To'] = to_email
-        msg['Subject'] = "Reservation Available!"
+        msg['Subject'] = "방탈출 예약 가능!"
         
         body = name + " " + theme + " 예약 가능" + url
         msg.attach(MIMEText(body, 'plain'))
@@ -54,13 +54,17 @@ def check_reservation():
             # This will depend on the actual HTML structure of the page
             # Example:
             reservation_status = soup.find(id='reservation_status').get_text(strip=True)
+
+            # looks at the text of each <h2> element, converts to lowercase, and checks wether the substring "python" is found anywhere. 
+            reservation_status = soup.find_all("h2", string=lambda text: "python" in text.lower()) 
+
             
             # Check if reservations are available
             if "Available" in reservation_status:
-                print("Reservations are available!")
+                print("예약 가능!")
                 return True
             else:
-                print("Reservations are not available.")
+                print("예약 불가능.")
                 return False
         else:
             print(f"Failed to fetch the page. Status code: {response.status_code}")
