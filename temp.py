@@ -55,12 +55,6 @@ def check_reservation():
             soup = BeautifulSoup(response.content, 'html.parser')
             
             # Find the specific element that indicates reservation status
-            # This will depend on the actual HTML structure of the page
-            # Example:
-            # reservation_status = soup.find(id='reservation_status').get_text(strip=True)
-
-            # looks at the text of each <h2> element, converts to lowercase, and checks wether the substring "python" is found anywhere. 
-            # reservation_status = soup.find_all("div", string=lambda text: "booking_list  hide_badge" in text.lower()) 
             pattern = re.compile(r'^\s*booking_list\s+hide_badge\s*$')
             elements = [div for div in soup.find_all('div') if 'class' in div.attrs and pattern.match(' '.join(div['class']))]
             
